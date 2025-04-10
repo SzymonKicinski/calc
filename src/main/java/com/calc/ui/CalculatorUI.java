@@ -47,7 +47,7 @@ public class CalculatorUI extends JFrame implements ActionListener {
                 Constants.SEVEN, Constants.EIGHT, Constants.NINE,
                 Constants.FOUR, Constants.FIVE, Constants.SIX,
                 Constants.ONE, Constants.TWO, Constants.THREE,
-                Constants.ZERO};
+                Constants.ZERO, "^"};
 
         for (String btnText : buttons) {
             JButton button = new JButton(btnText);
