@@ -50,16 +50,21 @@ public class CalculatorService {
                 }
                 numbers.push(UtilsValidator.evaluateValue(num));
                 i--;
-            }  else if (UtilsValidator.isOperator(current)) {
-                while (!operators.isEmpty() && UtilsValidator.precedence(operators.peek()) >=
-                        UtilsValidator.precedence(current) && numbers.size() >=2) {
+            } else if (UtilsValidator.isOperator(current)) {
+                while (!operators.isEmpty()
+                        && (
+                        (UtilsValidator.isRightAssociative(current)
+                                && UtilsValidator.precedence(operators.peek()) > UtilsValidator.precedence(current))
+                                || (!UtilsValidator.isRightAssociative(current)
+                                && UtilsValidator.precedence(operators.peek()) >= UtilsValidator.precedence(current)))
+                        && numbers.size() >= 2) {
                     processStacks(numbers, operators);
                 }
                 operators.push(current);
             }
         }
 
-        while (!operators.isEmpty() && numbers.size() >=2) {
+        while (!operators.isEmpty() && numbers.size() >= 2) {
             processStacks(numbers, operators);
         }
 
@@ -81,6 +86,9 @@ public class CalculatorService {
                 break;
             case '*':
                 numbers.push(a * b);
+                break;
+            case '^':
+                numbers.push((int) Math.pow(a, b));
                 break;
             case '/':
                 if (b == 0) throw new IllegalArgumentException("Division by zero");

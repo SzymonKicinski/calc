@@ -14,7 +14,8 @@ public class UtilsValidator {
             '+', 1,
             '-', 1,
             '*', 2,
-            '/', 2
+            '/', 2,
+            '^', 3
     );
     public static boolean isOperator(char c) {
         return OPERATORS.containsKey(c);
@@ -27,5 +28,9 @@ public class UtilsValidator {
     public static int evaluateValue(StringBuilder num) {
         long value = Long.parseLong(num.toString());
         return (int) Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE, value));
+    }
+
+    public static boolean isRightAssociative(char operator) {
+        return operator == '^';
     }
 }
